@@ -1,0 +1,55 @@
+{% extends "news/home.html" %}
+{% load static %}
+{% block banner %}
+{% endblock %}
+{% block content %}
+<head>
+
+</head>
+<body>
+    <foo id="signup">
+
+        <div class="ba">
+            <div class="news_headings"><h3>Subscribe</h3></div>
+
+                <div class="row">
+                    <div class="col-md-4 news_headings form">
+                        <ul>
+                        {% if msg %}
+                        {% autoescape off %}{{ msg }} {% endautoescape %}
+                        {% else %}
+                        <form action="#" method="post">
+                        {% csrf_token  %}
+
+                        <input type="email" name="email" class="full text-center" placeholder="Email">
+                        <div class="news_headings">
+                            <button type="submit" class="btn btn-block button">Subsribe</button></div>
+                        </form>
+                        {% endif %}
+                        </ul>
+                        <ul>
+                        {% if sub_fail %}
+                        <div class='alert alert-danger '><b>{% autoescape off %} {{ sub_fail }} {% endautoescape %}</b> </div>
+                        {% endif %}
+                        {% if sub_pass %}
+                        <div class='alert alert-success  '><b>{% autoescape off %} {{ sub_pass }} {% endautoescape %}</b> </div>
+                        {% endif %}
+                        </ul>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+                    <!--  <img src="{% static 'news/images/sig.jpg' %}" alt="Pic 01" width="500"/>-->
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </foo>
+</body>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

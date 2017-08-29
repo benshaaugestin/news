@@ -1,0 +1,115 @@
+{% extends "news/home.html" %}
+{% load social_share %}
+
+{% block content %}
+{% load comments %}
+<head>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style>
+        #comment_form {
+                    margin: 20px 400px 20px 20px ;
+
+            }
+
+            #id_submit{
+                    background-color: rgba(0,131,143 ,1);
+                      }
+            textarea {
+                        background-color: #d2f8ee;
+                        }
+    </style>
+</head>
+<div class="container news_headings">
+    <ul list-style-type="none">
+        <li><h2>{{ news.title }}</h2></li>
+        <li><p>{{ news.content }}</p></li>
+        {% if news.photo %}
+        <img src="{{ news.photo.url }}" alt="Pic 01"/>
+        {% endif %}
+
+    </ul>
+    <!--Pulling Awesome Font -->
+    			<div class="col-md-12">
+                    <div class="social-network social-circle">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//sayonenews.herokuapp.com{{ news.get_absolute_url }}" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="https://twitter.com/home?status=https%3A//sayonenews.herokuapp.com{{ news.get_absolute_url }}" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="https://plus.google.com/share?url=https%3A//sayonenews.herokuapp.com{{ news.get_absolute_url }}" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//sayonenews.herokuapp.com{{ news.get_absolute_url }}&title=&summary=&source=" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+                    </div>
+				</div>
+
+
+
+
+</div>
+<div class="news_headings"><h2>Comment here</h2></div>
+    {% if user.is_authenticated %}
+        {% get_comment_form for news as form %}
+            <div id="comment_form">
+                <form id="form" action="{% comment_form_target %}" method="POST">
+                    {% csrf_token %}
+                    <textarea name="comment" required cols="40" maxlength="3000" id="id_comment" rows="5"></textarea>
+                    {{ form.content_type }}
+                    {{ form.object_pk }}
+                    {{ form.timestamp }}
+                    {{ form.security_hash }}
+                    <input type="submit" value="Add comment" id="id_submit" />
+
+                </form>
+                <br />
+            </div>
+
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+    {% endif %}
+
+<div id="commentlist">
+    {% get_comment_list for news as comment_list %}
+        {% if comment_list %}
+            {% get_comment_count for news as comment_count %}
+
+            <div class="news_headings"><p>This news has {{ comment_count }} comments.</p></div>
+
+            {% for comment in comment_list %}
+            <div class="news_headings">
+                <h2>{{comment.comment}}</h2> <br/>
+               <p>posted by:{{ comment.user_name }} at {{ comment.submit_date}}</p></div>
+            {% endfor %}
+        {% else %}
+            <p>----no cooments----</p>
+        {%endif%}
+</div>
+<script type="text/javascript" charset="utf-8">
+      function bindPostCommentHandler() {
+          $('#comment_form form input.submit-preview').remove();
+          $('#comment_form form').submit(function() {
+              $.ajax({
+                  type: "POST",
+                 data: $('#comment_form form').serialize(),
+                  url: "{% comment_form_target %}",
+                  cache: false,
+                 dataType: "html",
+                 success: function(html, textStatus) {
+                      $("#commentlist").load("{% url 'refresh_post' news.id %}");
+                        $("#form")[0].reset();
+
+                 },
+                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                     $('#comment_form form').replaceWith('Your comment was unable to be posted at this time.  We apologise for the inconvenience.');
+                 }
+             });
+             return false;
+         });
+     }
+
+     $(document).ready(function() {
+         bindPostCommentHandler();
+     });
+</script>
+
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

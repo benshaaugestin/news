@@ -1,0 +1,21 @@
+{% load comments %}
+{% get_comment_count for news.news news.id as comment_count %}
+<div class="alert alert-info">
+  <p>{{ comment_count }} comments have been posted.</p>
+</div><hr />
+
+
+  {% get_comment_list for news.news news.id as comment_list %}
+  {% if comment_list %}
+      <div class="news_headings">
+        {% for comment in comment_list %}
+    <div class="news_headings">
+        <h2>{{comment.comment}}</h2> <br/>
+       <p>posted by:{{ comment.user_name }} at {{ comment.submit_date}}</p></div>
+    {% endfor %}
+      </div>
+  {% endif %}
+  <hr />
+
+
+

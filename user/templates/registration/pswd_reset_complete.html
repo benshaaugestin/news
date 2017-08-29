@@ -1,0 +1,39 @@
+{% extends "news/home.html" %}
+{% load static %}
+{% block banner %}
+{% endblock %}
+{% block content %}
+<head>
+    <style>
+
+       p {
+                    margin: 35px  ;
+                    font-size:20px;
+                    color:white;
+
+            }
+        #signup .ba {
+
+    padding: 50px 50px 445px 50px;
+    margin-top: 30px;
+
+    </style>
+
+       <body>
+    <foo id="signup">
+
+    <div class="ba">
+
+
+
+    <div class="news_headings">
+        <p>
+         Your password has been set. You may go ahead and <a href="{% url 'login' %}">sign in</a> now.
+        </p>
+
+      </div>
+                </div>
+        </foo>
+{% endblock %}
+{% block footer %}
+{% endblock %}

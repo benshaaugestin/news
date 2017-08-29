@@ -1,0 +1,200 @@
+{% load static %}
+<html>
+	<head>
+		<title>TheNewsReporter</title>
+		 <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="{% static 'news/main.css' %}" />
+		<link rel="stylesheet" href="{% static 'news/style.css' %}">
+
+
+		<style>
+  			.affix {
+      		top: 0;
+     		 width: 100%;
+     		 z-index:5;
+  			}
+		</style>
+
+	</head>
+<body>
+	<div class="row">
+
+		<div class="col-md-12 afix">
+
+			<nav class="navbar navbar-inverse" data-spy="affix">
+				<div class="col-md-12">
+
+					<div class="navbar-header">
+						<a class="navbar-brand" href="{%url 'news:index' %}">The News Reporter</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="{%url 'news:index' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+
+						{% if user.is_authenticated %}
+						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Profile <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="{% url 'profile' %}">Edit profile</a></li>
+								<li><a href="{% url 'set_password' %}">Edit pasword</a></li>
+
+							</ul>
+						</li>
+						{% endif %}
+					</ul>
+
+
+					<ul class="nav navbar-nav navbar-right">
+
+						<li>
+							<form action="/search/" method="get" class="search-form">
+								<div class="form-group has-feedback">
+									<label for="searchitem" class="sr-only">Search</label>
+
+									<input type="text" class="form-control" name="searchitem" id="searchitem" placeholder="search">
+									<span class="glyphicon glyphicon-search form-control-feedback"></span>
+								</div>
+							</form>
+						</li>
+						<li>
+						{% if user.is_authenticated %}
+							<li><a href="{% url 'profile' %}">Hi {{ user.username }}!</a></li>
+							<li><a href="{% url 'logout' %}">logout</a>  </li>
+						{% else %}
+							<li><a href="/user/signup/#footersignup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+							<li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						{% endif%}
+						</li>
+					</ul>
+
+
+
+				</div>
+			</nav>
+		</div>
+	</div>
+
+	{% block banner %}
+		<!-- Banner -->
+
+		<div class=" bo">
+			<section id="banner">
+				<div class="inner">
+					<header>
+						{% block header %}<h1>The News Reporter</h1> {% endblock %}
+					</header>
+					<div class="flex ">
+						<div>
+
+							<h3><a href="/about">About Us</a></h3>
+						</div>
+						<div>
+
+							<h3><a href="{% url 'contact' %}">Contact Us</a></h3>
+
+						</div>
+						<div>
+							<h3><a href="{% url 'subscribe' %}">Subscribe</a></h3>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	{% endblock %}
+
+	{% block content %}
+
+	{% endblock %}
+		<!-- F%%ooter -->
+
+	{% block footer %}
+
+
+
+<div class="padding-top-fiftheen-px"></div>
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <a href="#" class="footerlink" rel="index,follow" title="Header 1">Header 1</a>
+          <p class="text-muted small padding-top-fiftheen-px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <div class="align-text-right hidden-lg hidden-md hidden-sm">
+            <a href="#" id="ButtonLink" class="btn btn-warning btn-sm">more<i class="fa fa-chevron-right padding-left-five-px"></i></a>
+            <div class="clearfix"></div>
+            <hr class="color-white">
+            <div class="mouse-help"></div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <a href="#" class="footerlink" rel="follow" title="Header 2">Header 2</a>
+          <p class="text-muted small padding-top-fiftheen-px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <div class="align-text-right hidden-lg hidden-md hidden-sm">
+            <a href="#" id="ButtonLink" class="btn btn-warning btn-sm">more<i class="fa fa-chevron-right padding-left-five-px"></i></a>
+            <div class="clearfix"></div>
+            <hr class="color-white">
+            <div class="mouse-help"></div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <a href="#" class="footerlink" rel="follow" title="Header 3">Header 3</a>
+          <p class="text-muted small padding-top-fiftheen-px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <div class="align-text-right hidden-lg hidden-md hidden-sm">
+            <a href="#" id="ButtonLink" class="btn btn-warning btn-sm">more<i class="fa fa-chevron-right padding-left-five-px"></i></a>
+            <div class="clearfix"></div>
+            <div class="mouse-help"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-xs-12 clearfix hidden-lg hidden-md">
+        <div class="padding-top-fiftheen-px"></div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 column text-center">
+        <span class="social-sharing">Connect & Share</span>
+        <div class="clearfix hidden-md hidden-sm hidden-xs padding-top-fiftheen-px"></div>
+        <div class="clearfix hidden-lg hidden-md hidden-sm padding-top-ten-px"></div>
+        <div class="clearfix hidden-lg hidden-xs">
+          <hr class="primary">
+        </div>
+
+        <div class="col-lg-12 text-center clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 no-padding">
+            <div class="col-sm-6 col-xs-6"><a href="https://www.facebook.com/@PartnerFacebook" title="Share on Facebook" class="social-sharing" target="_blank"><i class="fa fa-2x fa-facebook-square"></i></a></div>
+            <div class="col-sm-6 col-xs-6"><a href="https://twitter.com/@PartnerTwitterHandle" title="Share on Twitter" class="social-sharing" target="_blank"><i class="fa fa-2x fa-twitter-square"></i></a></div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 no-padding">
+            <div class="col-sm-6 col-xs-6"><a href="https://www.instagram.com/@PartnerInstagram" title="Share on Instagram" rel="index,follow" class="social-sharing" target="_blank"><i class="fa fa-2x fa-instagram"></i></a></div>
+            <div class="col-sm-6 col-xs-6"><a href="https://www.linkedin.com/company/@PartnerLinkedIn" title="Share on LinkedIn" rel="index,follow" class="social-sharing" target="_blank"><i class="fa fa-2x fa-linkedin-square"></i></a></div>
+          </div>
+          <div class="col-sm-12 col-xs-12 clearfix hidden-lg hidden-md hidden-sm padding-top-eight-px"></div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 no-padding">
+            <div class="col-sm-6 col-xs-6"><a href="https://www.pinterest.com/@PartnerPinterest" title="Share on Pinterest" rel="index,follow" class="social-sharing" target="_blank"><i class="fa fa-2x fa-pinterest-square"></i></a></div>
+            <div class="col-sm-6 col-xs-6"><a href="https://www.youtube.com/" title="Share on YouTube" rel="index,follow" class="social-sharing" target="_blank"><i class="fa fa-2x fa-youtube-square"></i></a></div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 no-padding">
+            <div class="col-sm-6 col-xs-6"><a href="https://play.google.com/store/apps/details?id=com.propay.mobile" title="Download from Google Play" rel="index,follow" class="social-sharing" target="_blank"><i class="fa fa-2x fa-android"></i></a></div>
+            <div class="col-sm-6 col-xs-6"><a href="https://itunes.apple.com/us/app/propay-accept-credit-cards/id433046878?mt=8" rel="index,follow" title="Download from Apple Store" class="social-sharing" target="_blank"><i class="fa fa-2x fa-apple"></i></a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <hr>
+    <div class="col-lg-12 col-md-12 no-padding">
+      <div class="copyright">
+						&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+					</div>
+
+  </div>
+</footer>
+{% endblock %}
+
+</div>
+
+</body>
+</html>

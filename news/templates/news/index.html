@@ -1,0 +1,35 @@
+{% extends "news/home.html" %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-9">
+            {% block news %}
+                {% if latest_news_list %}
+                    <ul >
+                        {% for n in latest_news_list %}
+                            <div class="news_headings">
+                                <li><h2><a href="{% url 'news:detail' n.id %}">{{ n.title }}</a></h2></li>
+                                <p>{{n.content|truncatechars_html:200}} <a href="{% url 'news:detail' n.id %}">more</a></p>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No news are available.</p>
+                {% endif %}
+
+
+            {% endblock %}
+        </div>
+        <div class="col-md-3">
+            <div class="news_cat">
+            <ul>
+                {% for i in category_list%}
+
+                    <li><h4><a href="{% url 'news:category' i.id %} ">{{i.category_name|capfirst}}</a></h4></li>
+                {% endfor %}
+            </ul>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
